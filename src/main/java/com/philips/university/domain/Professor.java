@@ -23,4 +23,9 @@ public class Professor extends BaseEntity {
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Schedule> scheduleList;
+
+    public Professor(String name, Department department) {
+        this.name = name;
+        this.department = department;
+    }
 }

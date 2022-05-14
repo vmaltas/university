@@ -29,4 +29,10 @@ public class Schedule extends BaseEntity {
     public Schedule() {
     }
 
+    public Schedule(Professor professor, Course course, Integer semester, Integer year) {
+        this.professor = professor;
+        this.course = course;
+        this.semester = semester;
+        this.year = year;
+    }
 }

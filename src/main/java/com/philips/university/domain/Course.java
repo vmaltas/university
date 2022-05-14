@@ -25,4 +25,10 @@ public class Course extends BaseEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Schedule> scheduleList;
+
+    public Course(String name,  Department department, Integer credit) {
+        this.name = name;
+        this.department = department;
+        this.credit = credit;
+    }
 }
