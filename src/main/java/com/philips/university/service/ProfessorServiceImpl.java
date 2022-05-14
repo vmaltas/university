@@ -1,10 +1,12 @@
 package com.philips.university.service;
 
 
+import com.philips.university.domain.Department;
 import com.philips.university.domain.Professor;
 import com.philips.university.dto.request.ProfessorRequestDto;
 import com.philips.university.dto.response.ProfessorListResponseDto;
 import com.philips.university.dto.response.ProfessorResponseDto;
+import com.philips.university.repository.DepartmentRepository;
 import com.philips.university.repository.ProfessorRepository;
 import com.philips.university.service.mapper.MapStructMapper;
 import com.philips.university.util.SortUtil;
@@ -27,8 +29,12 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     private final ProfessorRepository professorRepository;
 
+    private final DepartmentRepository departmentRepository;
+
     public Optional<ProfessorResponseDto> createProfessor(ProfessorRequestDto professorRequestDto) {
         Professor professor = mapstructMapper.professorRequestDtoToProfessorEntity(professorRequestDto);
+        Department department = departmentRepository.findById(professorRequestDto.getDepartmentId()).orElse(null);
+        professor.setDepartment(department);
         return mapstructMapper.professorEntityToProfessorResponseDto(professorRepository.save(professor));
     }
 
@@ -40,6 +46,8 @@ public class ProfessorServiceImpl implements ProfessorService {
     public Optional<ProfessorResponseDto> updateProfessor(Long id, ProfessorRequestDto professorRequestDto) {
         Professor professor = professorRepository.findById(id).orElse(null);
         professor.setName(professorRequestDto.getName());
+        Department department = departmentRepository.findById(professorRequestDto.getDepartmentId()).orElse(null);
+        professor.setDepartment(department);
         return mapstructMapper.professorEntityToProfessorResponseDto(professorRepository.save(professor));
     }
 

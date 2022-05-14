@@ -1,10 +1,14 @@
 package com.philips.university.service;
 
 
+import com.philips.university.domain.Course;
+import com.philips.university.domain.Professor;
 import com.philips.university.domain.Schedule;
 import com.philips.university.dto.request.ScheduleRequestDto;
 import com.philips.university.dto.response.ScheduleListResponseDto;
 import com.philips.university.dto.response.ScheduleResponseDto;
+import com.philips.university.repository.CourseRepository;
+import com.philips.university.repository.ProfessorRepository;
 import com.philips.university.repository.ScheduleRepository;
 import com.philips.university.service.mapper.MapStructMapper;
 import com.philips.university.util.SortUtil;
@@ -27,8 +31,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
+    private final ProfessorRepository professorRepository;
+
+    private final CourseRepository courseRepository;
+
     public Optional<ScheduleResponseDto> createSchedule(ScheduleRequestDto scheduleRequestDto) {
         Schedule schedule = mapstructMapper.scheduleRequestDtoToScheduleEntity(scheduleRequestDto);
+        Professor professor = professorRepository.findById(scheduleRequestDto.getProfessorId()).orElse(null);
+        schedule.setProfessor(professor);
+        Course course = courseRepository.findById(scheduleRequestDto.getCourseId()).orElse(null);
+        schedule.setCourse(course);
         return mapstructMapper.scheduleEntityToScheduleResponseDto(scheduleRepository.save(schedule));
     }
 
@@ -41,6 +53,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule schedule = scheduleRepository.findById(id).orElse(null);
         schedule.setSemester(scheduleRequestDto.getSemester());
         schedule.setYear(scheduleRequestDto.getYear());
+        Professor professor = professorRepository.findById(scheduleRequestDto.getProfessorId()).orElse(null);
+        schedule.setProfessor(professor);
+        Course course = courseRepository.findById(scheduleRequestDto.getCourseId()).orElse(null);
+        schedule.setCourse(course);
         return mapstructMapper.scheduleEntityToScheduleResponseDto(scheduleRepository.save(schedule));
     }
 

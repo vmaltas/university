@@ -2,10 +2,12 @@ package com.philips.university.service;
 
 
 import com.philips.university.domain.Course;
+import com.philips.university.domain.Department;
 import com.philips.university.dto.request.CourseRequestDto;
 import com.philips.university.dto.response.CourseListResponseDto;
 import com.philips.university.dto.response.CourseResponseDto;
 import com.philips.university.repository.CourseRepository;
+import com.philips.university.repository.DepartmentRepository;
 import com.philips.university.service.mapper.MapStructMapper;
 import com.philips.university.util.SortUtil;
 import lombok.AllArgsConstructor;
@@ -27,8 +29,12 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
 
+    private final DepartmentRepository departmentRepository;
+
     public Optional<CourseResponseDto> createCourse(CourseRequestDto courseRequestDto) {
         Course course = mapstructMapper.courseRequestDtoToCourseEntity(courseRequestDto);
+        Department department = departmentRepository.findById(courseRequestDto.getDepartmentId()).orElse(null);
+        course.setDepartment(department);
         return mapstructMapper.courseEntityToCourseResponseDto(courseRepository.save(course));
     }
 
@@ -40,6 +46,9 @@ public class CourseServiceImpl implements CourseService {
     public Optional<CourseResponseDto> updateCourse(Long id, CourseRequestDto courseRequestDto) {
         Course course = courseRepository.findById(id).orElse(null);
         course.setName(courseRequestDto.getName());
+        course.setCredit(courseRequestDto.getCredit());
+        Department department = departmentRepository.findById(courseRequestDto.getDepartmentId()).orElse(null);
+        course.setDepartment(department);
         return mapstructMapper.courseEntityToCourseResponseDto(courseRepository.save(course));
     }
 

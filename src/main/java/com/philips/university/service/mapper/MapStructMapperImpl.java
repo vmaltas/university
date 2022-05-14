@@ -101,6 +101,7 @@ public class MapStructMapperImpl implements MapStructMapper {
         }
         Course course = new Course();
         course.setName(courseRequestDto.getName());
+        course.setCredit(courseRequestDto.getCredit());
         return course;
 
     }
@@ -117,15 +118,11 @@ public class MapStructMapperImpl implements MapStructMapper {
         scheduleResponseDto.setSemester(schedule.getSemester());
         scheduleResponseDto.setYear(schedule.getYear());
 
-        ProfessorResponseDto professorResponseDto = new ProfessorResponseDto();
-        professorResponseDto.setId(schedule.getProfessor().getId());
-        professorResponseDto.setName(schedule.getProfessor().getName());
-        scheduleResponseDto.setProfessorResponseDto(professorResponseDto);
+        Optional<ProfessorResponseDto> professorResponseDto = professorEntityToProfessorResponseDto(schedule.getProfessor());
+        scheduleResponseDto.setProfessorResponseDto(professorResponseDto.get());
 
-        CourseResponseDto courseResponseDto = new CourseResponseDto();
-        courseResponseDto.setId(schedule.getCourse().getId());
-        courseResponseDto.setName(schedule.getCourse().getName());
-        scheduleResponseDto.setCourseResponseDto(courseResponseDto);
+        Optional<CourseResponseDto> courseResponseDto = courseEntityToCourseResponseDto(schedule.getCourse());
+        scheduleResponseDto.setCourseResponseDto(courseResponseDto.get());
 
         return opt;
 
