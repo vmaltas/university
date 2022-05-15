@@ -7,6 +7,7 @@ import com.philips.university.domain.Schedule;
 import com.philips.university.dto.request.ScheduleRequestDto;
 import com.philips.university.dto.response.ScheduleListResponseDto;
 import com.philips.university.dto.response.ScheduleResponseDto;
+import com.philips.university.dto.response.ScheduleSearchResponseDto;
 import com.philips.university.repository.CourseRepository;
 import com.philips.university.repository.ProfessorRepository;
 import com.philips.university.repository.ScheduleRepository;
@@ -78,6 +79,13 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         scheduleListResponseDto.setScheduleResponseDtoList(responseDtoList);
         return scheduleListResponseDto;
+    }
+
+    public ScheduleSearchResponseDto search() {
+        List<String> searchList = scheduleRepository.search();
+        ScheduleSearchResponseDto scheduleSearchResponseDto = new ScheduleSearchResponseDto();
+        scheduleSearchResponseDto.setSearchResponseDto(searchList);
+        return scheduleSearchResponseDto;
     }
 
 

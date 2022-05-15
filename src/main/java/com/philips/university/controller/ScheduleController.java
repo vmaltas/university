@@ -6,6 +6,7 @@ import com.philips.university.constants.ScheduleConstants;
 import com.philips.university.dto.request.ScheduleRequestDto;
 import com.philips.university.dto.response.ScheduleListResponseDto;
 import com.philips.university.dto.response.ScheduleResponseDto;
+import com.philips.university.dto.response.ScheduleSearchResponseDto;
 import com.philips.university.service.ScheduleService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -82,11 +83,18 @@ public class ScheduleController {
             @RequestParam(required = false, name = "sortField",
                     defaultValue = "name") String sortField,
             @RequestParam(required = false, name = "direction",
-                    defaultValue = "ASC") String direction,
-            @RequestParam(required = false, name = "keyword") String keyword
+                    defaultValue = "ASC") String direction
     ) {
         final ScheduleListResponseDto responseDtoList =
                 scheduleService.getScheduleList(page, size, sortField, direction);
+        return ResponseEntity.ok(responseDtoList);
+    }
+
+    @PreAuthorize(AuthorizationConstants.HAS_ADMIN_ROLE)
+    @GetMapping(path = ScheduleConstants.SCHEDULE_SEARCH_API_PATH)
+    public ResponseEntity<ScheduleSearchResponseDto> search() {
+        final ScheduleSearchResponseDto responseDtoList =
+                scheduleService.search();
         return ResponseEntity.ok(responseDtoList);
     }
 

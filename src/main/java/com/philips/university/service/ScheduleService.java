@@ -3,6 +3,7 @@ package com.philips.university.service;
 import com.philips.university.dto.request.ScheduleRequestDto;
 import com.philips.university.dto.response.ScheduleListResponseDto;
 import com.philips.university.dto.response.ScheduleResponseDto;
+import com.philips.university.dto.response.ScheduleSearchResponseDto;
 
 import java.util.Optional;
 
@@ -17,5 +18,7 @@ public interface ScheduleService {
     void deleteSchedule(Long id);
 
     ScheduleListResponseDto getScheduleList(int page, int size, String sortField, String direction);
+
+    ScheduleSearchResponseDto search();
 
 }

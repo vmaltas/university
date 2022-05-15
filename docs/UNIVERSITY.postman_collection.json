@@ -796,6 +796,41 @@
           "response": []
         },
         {
+          "name": "localhost:8080/v1/schedule/search",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "123",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/v1/schedule/search",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "schedule",
+                "search"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "localhost:8080/v1/schedule/1",
           "request": {
             "auth": {
