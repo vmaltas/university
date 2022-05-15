@@ -1,32 +1,53 @@
-# UNIVERSITY ADMINISTRATIVE System
+# University Administrative System
 
-The system aims to supply a backend side for University Schedule Administrative system.
+The project aims to supply a backend side for University Schedule Administrative system.
 
 ## Installation & Deployment Steps
 
 ### Requirements:
 
-* Docker installed on your local machine
+* `Docker` and `Maven` installed on your local machine
 
-* Database Editor: Personally I prefer Data Grip but other tools works as well.
+* Database Editor: Personally I prefer `DataGrip` but other db tools will work as well.
 
-### Installation:
+### Creating Application Image:
 
-1. Just start the `docker-compose.yml` file using the command below, which will download the Postgres image and start
-   the db
+* If it is the first time you are running this application, in terminal run the commands below to create an image of the
+  application and restore it to your local Docker image repo.
+
+```shell script
+ mvn clean package
+ docker build --tag=university:latest .
+```
+
+### Creating Network:
+
+* If it is the first time you are running this application, you have to create a Docker network use the command below,
+  so your containers can communicate each other
+
+```shell script
+docker network create university_system_network
+```
+
+### Running Application on Docker:
+
+* Just start the `docker-compose.yml` file using the command below, which will download the Postgres image and start the
+  db then start the Application
 
 ```shell script
  docker-compose up -d
 ```
 
-2. database user will be created automatically, if you already have Postgres DB, please create user with the command
-   below
+Note: database user will be created automatically, if you already have Postgres DB, please create user with the command
+below
 
 ```shell script
  CREATE USER 'db_user' IDENTIFIED BY '112233ee';
 ```
 
-3. Run the Application by running `UniversityApplication.java` which will start a Spring Boot Application.
+### Running as Boot Application:
+
+Just Run/Debug the Application from `UniversityApplication.java` which will start a Spring Boot Application.
 
 ## Testing
 

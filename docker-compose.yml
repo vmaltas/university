@@ -3,6 +3,7 @@ version: '3.1'
 
 services:
   db:
+    container_name: university_db
     image: postgres
     restart: always
     environment:
@@ -12,3 +13,16 @@ services:
       POSTGRES_RANDOM_ROOT_PASSWORD: 'true'
     ports:
       - 5432:5432
+    networks:
+      - university_system_network
+  university:
+    container_name: university
+    image: university:latest
+    ports:
+      - 8080:8080
+    networks:
+      - university_system_network
+networks:
+  university_system_network:
+    external: true
+    driver: bridge
