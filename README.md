@@ -66,6 +66,12 @@ Admin user `(admin)` is included for the system authorization checks. You can se
 
 The user types can reach different API's specified in the requirements document: `\docs\RequirementDocument.pdf`
 
+To run the tests please change the db url in `application.yml` as below
+
+```shell script
+    url: 'jdbc:postgresql://localhost:5432/postgres'
+```
+
 ### APIS
 
 For testing API's Swagger is enabled. You can reach them from the address: http://localhost:8080/swagger-ui/#/.
@@ -74,6 +80,6 @@ Optionally you can use the Postman JSON Collection provided from: `\docs\UNIVERS
 
 ### Credits
 
-github for giving us this amazing facility.
+`github` for giving us this amazing facility.
 
 vmaltas

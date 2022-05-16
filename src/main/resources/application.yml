@@ -2,7 +2,7 @@ spring:
   datasource:
     username: 'db_user'
     password: '112233ee'
-    url: 'jdbc:postgresql://university_db:5432/postgres'
+    url: 'jdbc:postgresql://localhost:5432/postgres'
   jpa:
     hibernate:
       ddl-auto: create
