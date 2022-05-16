@@ -10,4 +10,6 @@ public class ScheduleConstants {
 
     public static final String SCHEDULE_SEARCH_API_PATH = "/search";
 
+    private ScheduleConstants() {
+    }
 }

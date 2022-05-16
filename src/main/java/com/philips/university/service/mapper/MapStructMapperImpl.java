@@ -119,10 +119,10 @@ public class MapStructMapperImpl implements MapStructMapper {
         scheduleResponseDto.setYear(schedule.getYear());
 
         Optional<ProfessorResponseDto> professorResponseDto = professorEntityToProfessorResponseDto(schedule.getProfessor());
-        scheduleResponseDto.setProfessorResponseDto(professorResponseDto.get());
+        scheduleResponseDto.setProfessorResponseDto(professorResponseDto.orElse(null));
 
         Optional<CourseResponseDto> courseResponseDto = courseEntityToCourseResponseDto(schedule.getCourse());
-        scheduleResponseDto.setCourseResponseDto(courseResponseDto.get());
+        scheduleResponseDto.setCourseResponseDto(courseResponseDto.orElse(null));
 
         return opt;
 

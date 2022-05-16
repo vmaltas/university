@@ -26,4 +26,6 @@ public class LoggingConstants {
 
     public static final String DELETE_SCHEDULE_LOG = "Schedule was deleted id : {}";
 
+    private LoggingConstants() {
+    }
 }

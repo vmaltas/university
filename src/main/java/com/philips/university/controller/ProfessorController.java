@@ -35,8 +35,8 @@ public class ProfessorController {
     public ResponseEntity<ProfessorResponseDto> createProfessor(
             @Valid @RequestBody ProfessorRequestDto professorRequestDto) {
         final Optional<ProfessorResponseDto> professorResponseDto = professorService.createProfessor(professorRequestDto);
-        logger.info(LoggingConstants.CREATE_PROFESSOR_LOG, professorResponseDto.get().toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(professorResponseDto.get());
+        logger.info(LoggingConstants.CREATE_PROFESSOR_LOG, professorResponseDto.<Object>map(ProfessorResponseDto::toString).orElse(null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(professorResponseDto.orElse(null));
     }
 
 
@@ -60,7 +60,7 @@ public class ProfessorController {
         if (updatedProfessor.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        logger.info(LoggingConstants.UPDATE_PROFESSOR_LOG, updatedProfessor.get().toString());
+        logger.info(LoggingConstants.UPDATE_PROFESSOR_LOG, updatedProfessor.<Object>map(ProfessorResponseDto::toString).orElse(null));
         return ResponseEntity.ok(updatedProfessor.get());
     }
 

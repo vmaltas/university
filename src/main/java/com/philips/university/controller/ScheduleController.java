@@ -36,8 +36,8 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> createSchedule(
             @Valid @RequestBody ScheduleRequestDto scheduleRequestDto) {
         final Optional<ScheduleResponseDto> scheduleResponseDto = scheduleService.createSchedule(scheduleRequestDto);
-        logger.info(LoggingConstants.CREATE_SCHEDULE_LOG, scheduleResponseDto.get().toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleResponseDto.get());
+        logger.info(LoggingConstants.CREATE_SCHEDULE_LOG, scheduleResponseDto.<Object>map(ScheduleResponseDto::toString).orElse(null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleResponseDto.orElse(null));
     }
 
 

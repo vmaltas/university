@@ -8,4 +8,6 @@ public class DepartmentConstants {
 
     public static final String DEPARTMENT_ID_PATH = "/{id}";
 
+    private DepartmentConstants() {
+    }
 }

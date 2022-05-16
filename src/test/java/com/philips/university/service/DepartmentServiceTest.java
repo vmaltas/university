@@ -11,7 +11,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class DepartmentServiceTest {
+class DepartmentServiceTest {
 
     DepartmentRequestDto departmentRequestDto = new DepartmentRequestDto("Department of Magic");
     DepartmentRequestDto updatedDepartmentRequestDto = new DepartmentRequestDto("Department of Black Magic");

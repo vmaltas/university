@@ -52,18 +52,22 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     public Optional<ScheduleResponseDto> updateSchedule(Long id, ScheduleRequestDto scheduleRequestDto) {
         Schedule schedule = scheduleRepository.findById(id).orElse(null);
-        schedule.setSemester(scheduleRequestDto.getSemester());
-        schedule.setYear(scheduleRequestDto.getYear());
-        Professor professor = professorRepository.findById(scheduleRequestDto.getProfessorId()).orElse(null);
-        schedule.setProfessor(professor);
-        Course course = courseRepository.findById(scheduleRequestDto.getCourseId()).orElse(null);
-        schedule.setCourse(course);
+        if (schedule != null) {
+            schedule.setSemester(scheduleRequestDto.getSemester());
+            schedule.setYear(scheduleRequestDto.getYear());
+            Professor professor = professorRepository.findById(scheduleRequestDto.getProfessorId()).orElse(null);
+            schedule.setProfessor(professor);
+            Course course = courseRepository.findById(scheduleRequestDto.getCourseId()).orElse(null);
+            schedule.setCourse(course);
+        }
         return mapstructMapper.scheduleEntityToScheduleResponseDto(scheduleRepository.save(schedule));
     }
 
     public void deleteSchedule(Long id) {
         Schedule schedule = scheduleRepository.findById(id).orElse(null);
-        scheduleRepository.delete(schedule);
+        if (schedule != null) {
+            scheduleRepository.delete(schedule);
+        }
     }
 
 
@@ -75,7 +79,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         ScheduleListResponseDto scheduleListResponseDto = new ScheduleListResponseDto();
         List<ScheduleResponseDto> responseDtoList = new ArrayList<>();
         for (Schedule schedule : scheduleList) {
-            responseDtoList.add(mapstructMapper.scheduleEntityToScheduleResponseDto(schedule).get());
+            Optional<ScheduleResponseDto> scheduleResponseDto = mapstructMapper.scheduleEntityToScheduleResponseDto(schedule);
+            responseDtoList.add(scheduleResponseDto.orElse(null));
         }
         scheduleListResponseDto.setScheduleResponseDtoList(responseDtoList);
         return scheduleListResponseDto;

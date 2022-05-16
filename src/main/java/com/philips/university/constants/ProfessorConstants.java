@@ -8,4 +8,6 @@ public class ProfessorConstants {
 
     public static final String PROFESSOR_ID_PATH = "/{id}";
 
+    private ProfessorConstants() {
+    }
 }

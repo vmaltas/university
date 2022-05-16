@@ -11,7 +11,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class ScheduleServiceTest {
+class ScheduleServiceTest {
 
     ScheduleRequestDto courseRequestDto = new ScheduleRequestDto(1l, 1l, 3, 2012);
     ScheduleRequestDto updatedScheduleRequestDto = new ScheduleRequestDto(1l, 1l, 4, 2013);

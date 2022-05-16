@@ -11,7 +11,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class CourseServiceTest {
+class CourseServiceTest {
 
     CourseRequestDto courseRequestDto = new CourseRequestDto("Lead Guitar-101", 1, 1l);
     CourseRequestDto updatedCourseRequestDto = new CourseRequestDto("Solo Guitar-101", 1, 1l);

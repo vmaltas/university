@@ -5,7 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -89,8 +88,6 @@ public class UniversityExceptionHandler extends ResponseEntityExceptionHandler {
         body.put(ExceptionConstants.TYPE, exception.getClass().getSimpleName());
         body.put(ExceptionConstants.PATH, path);
         body.put(ExceptionConstants.MESSAGE, getMessageForStatus(status));
-        final String errorsMessage = CollectionUtils.isEmpty(errors) ? status.getReasonPhrase() :
-                errors.stream().filter(StringUtils::hasText).collect(Collectors.joining(ExceptionConstants.LIST_JOIN_DELIMITER));
         return new ResponseEntity<>(body, status);
     }
 

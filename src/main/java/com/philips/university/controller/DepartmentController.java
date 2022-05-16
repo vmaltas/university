@@ -35,8 +35,8 @@ public class DepartmentController {
     public ResponseEntity<DepartmentResponseDto> createDepartment(
             @Valid @RequestBody DepartmentRequestDto departmentRequestDto) {
         final Optional<DepartmentResponseDto> departmentResponseDto = departmentService.createDepartment(departmentRequestDto);
-        logger.info(LoggingConstants.CREATE_DEPARTMENT_LOG, departmentResponseDto.get().toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(departmentResponseDto.get());
+        logger.info(LoggingConstants.CREATE_DEPARTMENT_LOG, departmentResponseDto.<Object>map(DepartmentResponseDto::toString).orElse(null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(departmentResponseDto.orElse(null));
     }
 
 
@@ -60,7 +60,7 @@ public class DepartmentController {
         if (updatedDepartment.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        logger.info(LoggingConstants.UPDATE_DEPARTMENT_LOG, updatedDepartment.get().toString());
+        logger.info(LoggingConstants.UPDATE_DEPARTMENT_LOG, updatedDepartment.<Object>map(DepartmentResponseDto::toString).orElse(null));
         return ResponseEntity.ok(updatedDepartment.get());
     }
 

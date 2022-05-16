@@ -45,15 +45,19 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     public Optional<ProfessorResponseDto> updateProfessor(Long id, ProfessorRequestDto professorRequestDto) {
         Professor professor = professorRepository.findById(id).orElse(null);
-        professor.setName(professorRequestDto.getName());
-        Department department = departmentRepository.findById(professorRequestDto.getDepartmentId()).orElse(null);
-        professor.setDepartment(department);
+        if (professor != null) {
+            professor.setName(professorRequestDto.getName());
+            Department department = departmentRepository.findById(professorRequestDto.getDepartmentId()).orElse(null);
+            professor.setDepartment(department);
+        }
         return mapstructMapper.professorEntityToProfessorResponseDto(professorRepository.save(professor));
     }
 
     public void deleteProfessor(Long id) {
         Professor professor = professorRepository.findById(id).orElse(null);
-        professorRepository.delete(professor);
+        if (professor != null) {
+            professorRepository.delete(professor);
+        }
     }
 
 
@@ -70,7 +74,8 @@ public class ProfessorServiceImpl implements ProfessorService {
         ProfessorListResponseDto professorListResponseDto = new ProfessorListResponseDto();
         List<ProfessorResponseDto> responseDtoList = new ArrayList<>();
         for (Professor professor : professorList) {
-            responseDtoList.add(mapstructMapper.professorEntityToProfessorResponseDto(professor).get());
+            Optional<ProfessorResponseDto> professorResponseDto = mapstructMapper.professorEntityToProfessorResponseDto(professor);
+            responseDtoList.add(professorResponseDto.orElse(null));
         }
         professorListResponseDto.setProfessorResponseDtoList(responseDtoList);
         return professorListResponseDto;

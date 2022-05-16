@@ -6,4 +6,6 @@ public class AuthorizationConstants {
 
     public static final String HAS_ADMIN_ROLE = "hasRole('" + ROLE_ADMIN + "')";
 
+    private AuthorizationConstants() {
+    }
 }

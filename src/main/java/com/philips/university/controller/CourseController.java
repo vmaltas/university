@@ -35,8 +35,8 @@ public class CourseController {
     public ResponseEntity<CourseResponseDto> createCourse(
             @Valid @RequestBody CourseRequestDto courseRequestDto) {
         final Optional<CourseResponseDto> courseResponseDto = courseService.createCourse(courseRequestDto);
-        logger.info(LoggingConstants.CREATE_COURSE_LOG, courseResponseDto.get().toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(courseResponseDto.get());
+        logger.info(LoggingConstants.CREATE_COURSE_LOG, courseResponseDto.<Object>map(CourseResponseDto::toString).orElse(null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseResponseDto.orElse(null));
     }
 
 
@@ -60,7 +60,7 @@ public class CourseController {
         if (updatedCourse.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        logger.info(LoggingConstants.UPDATE_COURSE_LOG, updatedCourse.get().toString());
+        logger.info(LoggingConstants.UPDATE_COURSE_LOG, updatedCourse.<Object>map(CourseResponseDto::toString).orElse(null));
         return ResponseEntity.ok(updatedCourse.get());
     }
 

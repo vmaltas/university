@@ -38,13 +38,17 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     public Optional<DepartmentResponseDto> updateDepartment(Long id, DepartmentRequestDto departmentRequestDto) {
         Department department = departmentRepository.findById(id).orElse(null);
-        department.setName(departmentRequestDto.getName());
+        if (department != null) {
+            department.setName(departmentRequestDto.getName());
+        }
         return mapstructMapper.departmentEntityToDepartmentResponseDto(departmentRepository.save(department));
     }
 
     public void deleteDepartment(Long id) {
         Department department = departmentRepository.findById(id).orElse(null);
-        departmentRepository.delete(department);
+        if (department != null) {
+            departmentRepository.delete(department);
+        }
     }
 
 
@@ -61,7 +65,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         DepartmentListResponseDto departmentListResponseDto = new DepartmentListResponseDto();
         List<DepartmentResponseDto> responseDtoList = new ArrayList<>();
         for (Department department : departmentList) {
-            responseDtoList.add(mapstructMapper.departmentEntityToDepartmentResponseDto(department).get());
+
+            Optional<DepartmentResponseDto> departmentResponseDto = mapstructMapper.departmentEntityToDepartmentResponseDto(department);
+            responseDtoList.add(departmentResponseDto.orElse(null));
         }
         departmentListResponseDto.setDepartmentResponseDtoList(responseDtoList);
         return departmentListResponseDto;

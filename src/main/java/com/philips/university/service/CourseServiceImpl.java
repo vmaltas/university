@@ -45,16 +45,20 @@ public class CourseServiceImpl implements CourseService {
 
     public Optional<CourseResponseDto> updateCourse(Long id, CourseRequestDto courseRequestDto) {
         Course course = courseRepository.findById(id).orElse(null);
-        course.setName(courseRequestDto.getName());
-        course.setCredit(courseRequestDto.getCredit());
-        Department department = departmentRepository.findById(courseRequestDto.getDepartmentId()).orElse(null);
-        course.setDepartment(department);
+        if (course != null) {
+            course.setName(courseRequestDto.getName());
+            course.setCredit(courseRequestDto.getCredit());
+            Department department = departmentRepository.findById(courseRequestDto.getDepartmentId()).orElse(null);
+            course.setDepartment(department);
+        }
         return mapstructMapper.courseEntityToCourseResponseDto(courseRepository.save(course));
     }
 
     public void deleteCourse(Long id) {
         Course course = courseRepository.findById(id).orElse(null);
-        courseRepository.delete(course);
+        if (course != null) {
+            courseRepository.delete(course);
+        }
     }
 
 
@@ -71,7 +75,8 @@ public class CourseServiceImpl implements CourseService {
         CourseListResponseDto courseListResponseDto = new CourseListResponseDto();
         List<CourseResponseDto> responseDtoList = new ArrayList<>();
         for (Course course : courseList) {
-            responseDtoList.add(mapstructMapper.courseEntityToCourseResponseDto(course).get());
+            Optional<CourseResponseDto> courseResponseDto = mapstructMapper.courseEntityToCourseResponseDto(course);
+            responseDtoList.add(courseResponseDto.orElse(null));
         }
         courseListResponseDto.setCourseResponseDtoList(responseDtoList);
         return courseListResponseDto;
