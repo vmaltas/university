@@ -13,9 +13,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>university</name>
     <description>University Administrative System</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
     <dependencies>
         <!--SPRING BOOT DEPENDENCIES-->
         <dependency>
